@@ -28,12 +28,14 @@ class AnswerRequest(BaseModel):
     text_answer:str
     
 
-@app.post("/api/get_recomendations")
+@app.get("/api/get_recomendations")
 async def get_recomendations(request: AnswerRequest):
     try:
         text = await main.get_recomendations(request.topic , request.text_answer)
+        print(text)
         return {"message": text}
     
     except Exception as e:
+         print(e)
          return {"message": "Error "+ str(e)}
     
