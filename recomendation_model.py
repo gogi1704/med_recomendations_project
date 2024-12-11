@@ -17,7 +17,7 @@ system = """
 
 
 
-def get_recomendations(topic , user_info):
+async def get_recomendations(topic , user_info):
     user =f"""
 Жалоба пациента: {topic}
 Диалог с пациентом:
@@ -28,7 +28,7 @@ def get_recomendations(topic , user_info):
                 {"role": "system", "content": system},
                 {"role": "user", "content": f"{user}" }
                 ]
-    
+    print("openai start")
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=messages,
