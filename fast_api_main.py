@@ -28,7 +28,7 @@ class AnswerRequest(BaseModel):
     text_answer:str
     
 
-@app.get("/api/get_recomendations")
+@app.post("/api/get_recomendations")
 async def get_recomendations(request: AnswerRequest):
     try:
         text = await main.get_recomendations(request.topic , request.text_answer)
