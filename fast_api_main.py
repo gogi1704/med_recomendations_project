@@ -26,16 +26,33 @@ app.add_middleware(
 class AnswerRequest(BaseModel):
     topic:str
     text_answer:str
+
+
+class AnswerRecomendationRequest(BaseModel):
+    telegram_user_id:str
+    topic:str
+    text_answer:str  
+
+# @app.post("/api/get_recomendations")
+# async def get_recomendations(request: AnswerRequest):
+#     try:
+#         text = await main.get_recomendations(request.topic , request.text_answer)
+#         print(text)
+#         return {"message": text}
+    
+#     except Exception as e:
+#          print(e)
+#          return {"message": "Error "+ str(e)}
     
 
-@app.post("/api/get_recomendations")
-async def get_recomendations(request: AnswerRequest):
+
+
+@app.post("/api/get_recs")
+async def get_recs(request: AnswerRecomendationRequest):
     try:
-        text = await main.get_recomendations(request.topic , request.text_answer)
-        print(text)
-        return {"message": text}
+        await main.get_recs(request.telegram_user_id , request.topic , request.text_answer)
     
     except Exception as e:
          print(e)
-         return {"message": "Error "+ str(e)}
-    
+        #  return {"message": "Error "+ str(e)}
+        

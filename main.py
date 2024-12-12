@@ -1,32 +1,19 @@
 import recomendation_model
+import puzzle_bot_api
 
 
-def get_recomendations(topic , user_info ):
-    answer =  recomendation_model.get_recomendations(topic , user_info)
-    return answer
+# async def get_recomendations(topic , user_info ):
+#     answer = await recomendation_model.get_recomendations(topic , user_info)
+#     return answer
 
+async def get_recs(user_id, topic , user_info ):
+    answer = await recomendation_model.get_recomendations(topic , user_info)
+    change_result = await puzzle_bot_api.change_var_puzzle(user_id, answer)
 
+    if  change_result['code']== 0:
+        send_command_result = await puzzle_bot_api.send_command_neuro_recs(user_id)
 
-topic = "Боли в шейном отделе"
-user_info = """  Отмечаете ли вы головные боли?   
- Боли
-В какой области головы вы отмечаете боли?   
- Колющая
-С какой периодичностью возникают головные боли?  
- Раз в неделю
-Чем вы снимаете приступы головной боли? 
- Другие
- Беспокоят ли вас нарушения зрения?   
- Нет
- Отмечаете ли вы нарушения слуха?    
- Нет
- Беспокоят ли вас боли в суставах или позвоночнике?  
- Непонятный вопрос
-Отдают ли боли в нижние конечности (ноги)?    или в верхние конечности (руки)?  
- В нижние
- Сопровождаются ли боли ощущением онемения:   - 🦵 в нижних конечностях (ноги)?    либо в верхних конечностях (руки)?  
- В нижних
- Ранее обращались к врачу?     Какие исследования проводились?
- Обращался.
-Рентген"""
-print(get_recomendations(topic , user_info))
+        if send_command_result['code']!= 0 :
+            await puzzle_bot_api.send_command_error(user_id)
+    else : 
+        await puzzle_bot_api.send_command_error(user_id)
