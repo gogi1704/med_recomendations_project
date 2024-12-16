@@ -6,7 +6,7 @@ import aiohttp
 load_dotenv()
 
 puzzle_token = os.environ.get('PUZZLE_TOKEN')
-var_name = 'neuro_recs'
+var_name_neuro_recs = 'neuro_recs'
 
 command_name_neuro_recs = "/neuro_var"
 command_name_error = "/neuro_error"
@@ -14,7 +14,7 @@ command_name_error = "/neuro_error"
 async def change_var_puzzle(user_id , var_value):
         async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(sock_connect=30, sock_read=30)) as session:
             payload = {
-                'variable': var_name,
+                'variable': var_name_neuro_recs,
                 'expression': f"\"{var_value}\"",
                 'user_id': user_id
                

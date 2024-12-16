@@ -30,8 +30,12 @@ class AnswerRequest(BaseModel):
 
 class AnswerRecomendationRequest(BaseModel):
     telegram_user_id:str
-    topic:str
-    text_answer:str  
+    user_anketa:str
+    user_zhaloba:str  
+
+class AnswerIsZhalobaValidRequest(BaseModel):
+    telegram_user_id:str
+    zhaloba_text:str
 
 # @app.post("/api/get_recomendations")
 # async def get_recomendations(request: AnswerRequest):
@@ -50,9 +54,20 @@ class AnswerRecomendationRequest(BaseModel):
 @app.post("/api/get_recs")
 async def get_recs(request: AnswerRecomendationRequest):
     try:
-        await main.get_recs(request.telegram_user_id , request.topic , request.text_answer)
+        await main.get_recs(request.telegram_user_id , request.user_anketa , request.user_zhaloba)
     
     except Exception as e:
          print(e)
         #  return {"message": "Error "+ str(e)}
+
+
+# @app.post("/api/is_zhaloba_valid")
+# async def is_zhaloba_valid(request: AnswerIsZhalobaValidRequest):
+#     try:
+#         await main.is_zhaloba_valid(request.telegram_user_id , request.zhaloba_text)
+    
+#     except Exception as e:
+#          print(e)
+        #  return {"message": "Error "+ str(e)}
+
         
