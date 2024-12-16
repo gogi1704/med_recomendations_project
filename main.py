@@ -1,5 +1,5 @@
-import recomendation_model
-import zhaloba_validation_model
+# import recomendation_model
+# import zhaloba_validation_model
 import zhaloba_final_result_model
 import puzzle_bot_api
 
